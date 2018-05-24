@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.goofy.mapper.UserMapper" >
+
+    <resultMap id="UserEntity" type="com.goofy.entity.UserEntity">
+        <result property="id" column="id" javaType="java.lang.Integer"></result>
+        <result property="username" column="username" javaType="java.lang.String"></result>
+        <result property="password" column="password" javaType="java.lang.String"></result>
+    </resultMap>
+    <insert id="insertUser" parameterType="UserEntity">
+        insert into user (username,password) values (#{username},#{password})
+    </insert>
+    <update id="updateUser"  parameterType="UserEntity" >
+         update user set password=#{password} where username=#{username}
+    </update>
+    <delete id="deleteUser" parameterType="UserEntity" >
+        delete  FROM user WHERE username=#{username}
+    </delete>
+    <select id="selectUserByName" parameterType="UserEntity" resultType="com.goofy.entity.UserEntity">
+        select * FROM user WHERE username=#{username} AND password=#{password}
+    </select>
+    <select id="selectAllUser" parameterType="UserEntity" resultType="com.goofy.entity.UserEntity">
+        select * FROM user
+    </select>
+</mapper>
