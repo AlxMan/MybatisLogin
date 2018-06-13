@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Description TODO
@@ -55,4 +58,28 @@ public class UserServiceImpl implements UserService {
    public User selectName(String user){
         return userDao.selectName(user);
     }
+
+
+    /**
+     * 验证登录
+     * @param login_name
+     * @param login_password
+     * @param request
+     * @return
+     */
+    @Override
+    public Map<String, Object> loginValid(String login_name, String login_password, HttpServletRequest request){
+        User user=userDao.selectByName(login_name, login_password);
+        Map<String, Object> map=new HashMap<>();
+        if(user==null){
+            map.put("status", "userNameOrPwdError");
+        }else if(user!=null&&!"".equals(user.getUsername())){
+            map.put("status", "ok");
+            map.put("user", user);
+            request.getSession().setAttribute("user", user);
+        }
+        return map;
+    }
+
+
 }

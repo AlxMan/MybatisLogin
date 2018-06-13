@@ -9,25 +9,19 @@
     <title>欢迎登录</title>
 </head>
 <body>
-    <form action="${pageContext.request.contextPath }/user/checkLogin" method="post">
+    <form action="${pageContext.request.contextPath }/user/toLogin" method="post">
         <table>
-            <tr>
-                <td>用户名:</td>
-                <td><input id="username" name="username" type="text"></td>
-            </tr>
-            <tr>
-                <td>密码:</td>
-                <td><input id="password" name="password" type="password"></td>
-            </tr>
             <tr>
                 <td><input type="submit" value="登录"></td>
             </tr>
         </table>
     </form>
     <form action="${pageContext.request.contextPath }/user/toRegister" method="post">
-        <tr>
-            <td><input type="submit" value="注册"></td>
-        </tr>
+        <table>
+            <tr>
+                <td><input type="submit" value="注册" ></td>
+            </tr>
+        </table>
     </form>
 </body>
 </html>

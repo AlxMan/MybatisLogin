@@ -3,6 +3,9 @@ package com.goofy.service;
 import com.goofy.entity.User;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+
 /**
  * @Description TODO
  * @Author wangxianchao
@@ -22,5 +25,7 @@ public interface UserService {
     boolean existUser(User user);
 
     User selectName(String user);
+
+    Map<String, Object> loginValid(String name , String password, HttpServletRequest request);
 
 }

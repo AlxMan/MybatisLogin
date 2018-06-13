@@ -2,19 +2,20 @@ package com.goofy.controller;
 
 import com.goofy.entity.User;
 import com.goofy.service.UserService;
+import com.goofy.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Description TODO
@@ -49,18 +50,30 @@ public class UserController {
     }
 
 
-    //表单提交过来的路径
-    @RequestMapping("/checkLogin")
-    public String checkLogin(User user,Model model){
-        //调用service方法
-        user = userService.selectByName(user.getUsername(), user.getPassword());
-        //若有user则添加到model里并且跳转到成功页面
-        if(user != null){
-            model.addAttribute("user",user);
-            return "success";
-        }
-        return "fail";
+//    //表单提交过来的路径
+//    @ResponseBody
+//    @RequestMapping("/checkLogin")
+//    public String checkLogin(User user,Model model){
+//        //调用service方法
+//        user = userService.selectByName(user.getUsername(), user.getPassword());
+//        //若有user则添加到model里并且跳转到成功页面
+//        if(user != null){
+//            model.addAttribute("user",user);
+//            return "success";
+//        }
+//        return "fail";
+//    }
+    @RequestMapping("/toLogin")
+    public String toLogin(){
+    return  "login";
+}
+    //登录
+    @RequestMapping("/login")
+    @ResponseBody
+    public Map<String,Object> login(String login_name,String login_password,HttpServletRequest request){
+        return userService.loginValid(login_name, login_password, request);
     }
+
 
     //测试超链接跳转到另一个页面是否可以取到session值
     @RequestMapping("/anotherpage")
