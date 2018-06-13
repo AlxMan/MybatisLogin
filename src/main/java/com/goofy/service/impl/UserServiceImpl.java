@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.jws.soap.SOAPBinding;
 
 /**
  * @Description TODO
@@ -34,9 +35,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectByName(User user) {
-        return userDao.selectByName(user);
+    public User selectByName(String name , String password) {
+        User user = userDao.selectByName(name,password);
+        if(user!= null && user.getPassword().equals(password)){
+            return user;
+        }
+        return null;
     }
 
-
+    @Override
+    public boolean existUser(User user) {
+        User user1 = userDao.selectName(user.getUsername());
+       if(user1!=null){
+           return true;
+       }
+       return false;
+    }
+    @Override
+   public User selectName(String user){
+        return userDao.selectName(user);
+    }
 }

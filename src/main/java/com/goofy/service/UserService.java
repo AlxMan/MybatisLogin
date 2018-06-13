@@ -17,5 +17,10 @@ public interface UserService {
 
     int deleteUser(User user);
 
-    User selectByName(User user);
+    User selectByName(String name , String password);
+
+    boolean existUser(User user);
+
+    User selectName(String user);
+
 }
