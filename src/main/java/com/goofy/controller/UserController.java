@@ -68,12 +68,17 @@ public class UserController {
     return  "login";
 }
     //登录
-    @RequestMapping("/login")
+    @RequestMapping(value="/login",method=RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> login(String login_name,String login_password,HttpServletRequest request){
         return userService.loginValid(login_name, login_password, request);
     }
-
+    //注销
+    @RequestMapping(value="loginOutput")
+    public String loginOutput(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "index";
+    }
 
     //测试超链接跳转到另一个页面是否可以取到session值
     @RequestMapping("/anotherpage")

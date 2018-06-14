@@ -16,40 +16,38 @@
     <div id="loginError"></div>
     用户名：<input type="text" name="login_name" id="name"/><br>
     密码：<input type="password" name="login_password" id="pwd"/><br>
-    <button id="b" onclick="requestJson()" >登录</button>
+    <button id="b" >登录</button>
 </form>
 </body>
 <script type="text/javascript">
-    function requestJson(){
+    $("#b").click(function (){
         var name =$("#name").val();
         var pwd =$("#pwd").val();
         if(name===""){
             alert("用户名不能为空！");
-            return false;
         }
         else if(pwd===""){
             alert("密码不能为空！");
-            return false;
         }
-        else
-        {
+        else {
             $.ajax({
-            url:"${pageContext.request.contextPath}/user/login",
-            method:"post",
-            data:$('#signupForm').serialize(),
-            dataType:'json',
-            success:function(ret){
-            if(ret.status=='ok'){
-            $("#loginError").html("登录成功！");
-            var href = '${pageContext.request.contextPath}/user/success';
-            window.top.location.href = href;
-            }else if(ret.status=='userNameOrPwdError') {
-            $("#loginError").html("用户名或密码错误！");
-            }
-            }
+                url: "${pageContext.request.contextPath}/user/login",
+                method: "post",
+                data: $('#signupForm').serialize(),
+                dataType: 'json',
+                success: function (ret) {
+                    if (ret.status == 'ok') {
+                        $("#loginError").html("登录成功！");
+                        var href = '${pageContext.request.contextPath}/user/success';
+                        window.top.location.href = href;
+                    } else if (ret.status == 'userNameOrPwdError') {
+                        $("#loginError").html("用户名或密码错误！");
+                    }
+                }
             });
         }
-    }
+    });
+
 </script>
 <%--<script type="text/javascript">--%>
     <%--$(function(){--%>
